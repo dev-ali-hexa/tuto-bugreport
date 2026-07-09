@@ -562,11 +562,11 @@ function App() {
             <form onSubmit={handleAdminLogin} className="login-form">
               <label>
                 Email
-                <input type="email" value={adminEmail} onChange={(event) => setAdminEmail(event.target.value)} placeholder="admin@gmail.com" />
+                <input type="email" value={adminEmail} onChange={(event) => setAdminEmail(event.target.value)} placeholder="admin" />
               </label>
               <label>
                 Password
-                <input type="password" value={adminPassword} onChange={(event) => setAdminPassword(event.target.value)} placeholder="alikhan@admin" />
+                <input type="password" value={adminPassword} onChange={(event) => setAdminPassword(event.target.value)} placeholder="ali" />
               </label>
               {adminError && <p className="error-text">{adminError}</p>}
               <div className="login-actions">
