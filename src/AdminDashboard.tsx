@@ -186,10 +186,7 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onLogout }) => {
     }
   };
 
-  const selectedUser = useMemo(() => {
-    if (!selectedUserEmail) return null;
-    return userGroups.find(u => u.email === selectedUserEmail);
-  }, [selectedUserEmail, userGroups]);
+
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
