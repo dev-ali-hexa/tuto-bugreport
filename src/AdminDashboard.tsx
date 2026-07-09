@@ -2,7 +2,6 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { listenToFeedback, updateFeedbackStatus, updateFeedbackNotes, deleteFeedback, auth } from './firebase';
 import { FeedbackItem, AdminInfo } from './types';
 
-const statuses: FeedbackItem['status'][] = ['Open', 'In Progress', 'Fixed', 'Closed'];
 const featureCategories = ['AI', 'Learning', 'Chat', 'Video Call', 'Maps', 'Payments', 'Notifications', 'Community', 'Other'];
 const bugScreens = ['Home', 'Search', 'Tutor Profile', 'Student Profile', 'Chat', 'Video Call', 'Groups', 'Notifications', 'Settings', 'Other'];
 
@@ -10,7 +9,6 @@ const issueOptions = [
   'App crashes', 'Slow loading', 'Lagging', 'Confusing UI', 'Login issues',
   'Notification issues', 'Location issues', 'Video Call issues', 'Chat issues', 'Other',
 ];
-const improvementAreas = ['Home', 'Navigation', 'Search', 'Chat', 'Profile', 'Video Call', 'Groups', 'Dark Mode', 'Overall Design', 'Other'];
 
 const StarRating = ({ value, readOnly = false }: { value: number; readOnly?: boolean }) => (
   <div className="stars">
