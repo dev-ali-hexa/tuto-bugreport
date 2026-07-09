@@ -2,6 +2,8 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { listenToFeedback, updateFeedbackStatus, updateFeedbackNotes, deleteFeedback, auth } from './firebase';
 import { FeedbackItem, AdminInfo } from './types';
 
+const statuses: FeedbackItem['status'][] = ['Open', 'In Progress', 'Fixed', 'Closed'];
+
 const featureCategories = ['AI', 'Learning', 'Chat', 'Video Call', 'Maps', 'Payments', 'Notifications', 'Community', 'Other'];
 const bugScreens = ['Home', 'Search', 'Tutor Profile', 'Student Profile', 'Chat', 'Video Call', 'Groups', 'Notifications', 'Settings', 'Other'];
 

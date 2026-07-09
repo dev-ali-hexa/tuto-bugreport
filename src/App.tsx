@@ -80,9 +80,7 @@ const issueOptions = [
 ];
 
 const bugScreens = ['Home', 'Search', 'Tutor Profile', 'Student Profile', 'Chat', 'Video Call', 'Groups', 'Notifications', 'Settings', 'Other'];
-const improvementAreas = ['Home', 'Navigation', 'Search', 'Chat', 'Profile', 'Video Call', 'Groups', 'Dark Mode', 'Overall Design', 'Other'];
 const featureCategories = ['AI', 'Learning', 'Chat', 'Video Call', 'Maps', 'Payments', 'Notifications', 'Community', 'Other'];
-const statuses: FeedbackItem['status'][] = ['Open', 'In Progress', 'Fixed', 'Closed'];
 
 const StarRating = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (
   <div className="stars">
