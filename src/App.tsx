@@ -136,6 +136,13 @@ function App() {
   const [processingMessage, setProcessingMessage] = useState('');
 
   const { register, handleSubmit, reset, watch, setValue, formState: { errors } } = useForm<FormValues>({ defaultValues });
+  useEffect(() => {
+    register('appSpeed', { min: 1 });
+    register('easeOfUse', { min: 1 });
+    register('design', { min: 1 });
+    register('features', { min: 1 });
+    register('overall', { min: 1 });
+  }, [register]);
   const issues = watch('issues');
   const wantsToSuggestFeature = watch('wantsToSuggestFeature');
 
@@ -157,6 +164,13 @@ function App() {
     else if (data.wantsToSuggestFeature === 'yes' && data.featureTitle) feedbackType = 'feature';
     else if (data.improvementSuggestion) feedbackType = 'improvement';
     else if (data.overall > 0) feedbackType = 'performance';
+
+    // Check if performance feedback is required and not filled
+    if (feedbackType === 'performance' && (data.appSpeed === 0 || data.easeOfUse === 0 || data.design === 0 || data.features === 0 || data.overall === 0)) {
+      // This will ensure that if any other field makes this a performance report, all ratings are required.
+      // The validation rules on the fields will handle showing the errors.
+      return; 
+    }
 
     try {
       const item: Partial<FeedbackItem> = {
@@ -371,8 +385,8 @@ function App() {
               <input {...register('bugTitle', { required: true })} placeholder="Title" className={errors.bugTitle ? 'input-error' : ''} />
             </label>
             <label>
-              Which screen/page?
-              <select {...register('bugScreen', { required: true })}>
+              {renderRequiredLabel('Which screen/page?', errors.bugScreen)}
+              <select {...register('bugScreen', { required: true })} className={errors.bugScreen ? 'input-error' : ''}>
                 <option value="" disabled>Select a screen...</option>
                 {bugScreens.map((item) => <option key={item} value={item}>{item}</option>)}
               </select>
@@ -485,15 +499,15 @@ function App() {
             <p>Let us know what should feel better.</p>
           </div>
           <label>
-            {renderRequiredLabel('Which part of the app should be improved?', errors.improvementArea)}
-            <select {...register('improvementArea', { required: true })}>
+            Which part of the app should be improved?
+            <select {...register('improvementArea')}>
               <option value="" disabled>Select an area...</option>
               {improvementAreas.map((item) => <option key={item} value={item}>{item}</option>)}
             </select>
           </label>
           <label>
-            {renderRequiredLabel('Suggestion', errors.improvementSuggestion)}
-            <textarea {...register('improvementSuggestion', { required: true })} rows={4} placeholder="Share your UI/UX idea..." />
+            Suggestion
+            <textarea {...register('improvementSuggestion')} rows={4} placeholder="Share your UI/UX idea..." />
           </label>
         </section>
 
@@ -503,11 +517,11 @@ function App() {
             <p>Rate your experience and flag issues.</p>
           </div>
           <div className="rating-grid">
-            <label>App Speed<StarRating value={watch('appSpeed')} onChange={(value) => setValue('appSpeed', value)} /></label>
-            <label>Ease of Use<StarRating value={watch('easeOfUse')} onChange={(value) => setValue('easeOfUse', value)} /></label>
-            <label>Design<StarRating value={watch('design')} onChange={(value) => setValue('design', value)} /></label>
-            <label>Features<StarRating value={watch('features')} onChange={(value) => setValue('features', value)} /></label>
-            <label>Overall Experience<StarRating value={watch('overall')} onChange={(value) => setValue('overall', value)} /></label>
+            <label className={errors.appSpeed ? 'field-error' : ''}>{renderRequiredLabel('App Speed', errors.appSpeed)}<StarRating value={watch('appSpeed')} onChange={(value) => setValue('appSpeed', value, { shouldValidate: true })} /></label>
+            <label className={errors.easeOfUse ? 'field-error' : ''}>{renderRequiredLabel('Ease of Use', errors.easeOfUse)}<StarRating value={watch('easeOfUse')} onChange={(value) => setValue('easeOfUse', value, { shouldValidate: true })} /></label>
+            <label className={errors.design ? 'field-error' : ''}>{renderRequiredLabel('Design', errors.design)}<StarRating value={watch('design')} onChange={(value) => setValue('design', value, { shouldValidate: true })} /></label>
+            <label className={errors.features ? 'field-error' : ''}>{renderRequiredLabel('Features', errors.features)}<StarRating value={watch('features')} onChange={(value) => setValue('features', value, { shouldValidate: true })} /></label>
+            <label className={errors.overall ? 'field-error' : ''}>{renderRequiredLabel('Overall Experience', errors.overall)}<StarRating value={watch('overall')} onChange={(value) => setValue('overall', value, { shouldValidate: true })} /></label>
           </div>
           <div className="chip-grid">
             {issueOptions.map((option) => (
@@ -529,8 +543,8 @@ function App() {
             <p>Anything else you want us to know?</p>
           </div>
           <label>
-            {renderRequiredLabel('General Feedback', errors.generalFeedback)}
-            <textarea {...register('generalFeedback', { required: true })} rows={5} placeholder="Tell us anything that can help improve TutoMap..." />
+            General Feedback
+            <textarea {...register('generalFeedback')} rows={5} placeholder="Tell us anything that can help improve TutoMap..." />
           </label>
         </section>
 
