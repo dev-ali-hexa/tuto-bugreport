@@ -579,7 +579,7 @@ function App() {
       )}
 
       <footer className="page-footer">
-        <span>Developer: Ali</span>
+        <span>Developer: Ali/CodeDcode Service  </span>
         <span>{adminMode ? 'Admin Panel Active' : 'User View'}</span>
       </footer>
     </div>
