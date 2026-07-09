@@ -81,6 +81,7 @@ const issueOptions = [
 
 const bugScreens = ['Home', 'Search', 'Tutor Profile', 'Student Profile', 'Chat', 'Video Call', 'Groups', 'Notifications', 'Settings', 'Other'];
 const featureCategories = ['AI', 'Learning', 'Chat', 'Video Call', 'Maps', 'Payments', 'Notifications', 'Community', 'Other'];
+const improvementAreas = ['Home', 'Navigation', 'Search', 'Chat', 'Profile', 'Video Call', 'Groups', 'Dark Mode', 'Overall Design', 'Other'];
 
 const StarRating = ({ value, onChange }: { value: number; onChange: (value: number) => void }) => (
   <div className="stars">
